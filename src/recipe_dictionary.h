@@ -44,6 +44,8 @@ class recipe_dictionary
         /** Returns disassembly recipe (or null recipe if no match) */
         static const recipe &get_uncraft( const itype_id &id );
 
+        static const std::map<skill_id, std::set<proficiency_id>> &get_skill_proficiencies();
+
         static void load_recipe( const JsonObject &jo, const std::string &src );
         static void load_uncraft( const JsonObject &jo, const std::string &src );
 
@@ -67,6 +69,7 @@ class recipe_dictionary
         std::set<const recipe *> autolearn;
         std::set<const recipe *> blueprints;
         std::unordered_set<itype_id> items_on_loops;
+        static std::map<skill_id, std::set<proficiency_id>> skill_proficiencies;
 
         static void finalize_internal( std::map<recipe_id, recipe> &obj );
         void find_items_on_loops();

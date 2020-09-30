@@ -850,6 +850,7 @@ static void draw_skills_info( const catacurses::window &w_info, unsigned int lin
         fold_and_print( w_info, point( 1, 0 ), FULL_SCREEN_WIDTH - 2, c_light_gray,
                         selectedSkill->description() );
     }
+
     wnoutrefresh( w_info );
 }
 

@@ -79,6 +79,11 @@ const recipe &recipe_dictionary::get_uncraft( const itype_id &id )
     return iter != recipe_dict.uncraft.end() ? iter->second : null_recipe;
 }
 
+const std::map<skill_id, std::set<proficiency_id>> &recipe_dictionary::get_skill_proficiencies()
+{
+    return skill_proficiencies;
+}
+
 // searches for left-anchored partial match in the relevant recipe requirements set
 template <class group>
 bool search_reqs( group gp, const std::string &txt )
@@ -436,6 +441,10 @@ void recipe_dictionary::finalize()
         // if reversible and no specific uncraft recipe exists use this recipe
         if( r.is_reversible() && !recipe_dict.uncraft.count( recipe_id( r.result().str() ) ) ) {
             recipe_dict.uncraft[ recipe_id( r.result().str() ) ] = r;
+        }
+
+        for( const auto& pr : r.proficiencies ) {
+            skill_proficiencies[ r.skill_used ].insert( pr.id );
         }
     }
 
